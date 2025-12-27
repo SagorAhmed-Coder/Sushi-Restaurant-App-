@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sushi_restaurant/models/quantity_controller.dart';
 import 'package:sushi_restaurant/models/shop.dart';
 import 'package:sushi_restaurant/pages/home_page.dart';
 import 'package:sushi_restaurant/pages/splash_screen.dart';
@@ -14,14 +15,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => Shop(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Shop(),),
+        ChangeNotifierProvider(create: (context) => QuantityController(),),
+      ],
       builder: (context,value) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
             '/' : (context) => SplashScreen(),
             '/home-page' : (context) => HomePage(),
+         //   '/food-details-page' : (context) => FoodDetailsPage(),
           },
         );
       }
